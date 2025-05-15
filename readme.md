@@ -15,10 +15,10 @@ This repo is a subjective evaluation of the following MQTT clients for use in an
 * Transport status
   Compared to *rumqtt*, *paho-mqtt* provides more direct feedback on the underlying connection. Its `publish` function offers immediate feedback on the connection status. In contrast, *rumqtt*'s `publish()` method simply enqueues the message to be sent asynchronously in another thread. As a result, any connection or send errors must be handled during the `poll()` call. Unfortunately, this means the `publish()` function in *rumqtt* does not provide concrete or immediate information about the current transport (e.g. TCP/TLS) state.
 
-- Note on manual *ack* feature available in *rumqtt* but not in *paho-mqtt*:
-  Allowing the user to manually manage acks has huge implications because the application must
-  handle the ack in a manner that respects the MQTT protocol.
-  This is discussed here: <https://github.com/eclipse-paho/paho.mqtt.rust/issues/141#issuecomment-2305487832>
+Note on manual *ack* feature available in *rumqtt* but not in *paho-mqtt*:
+Allowing the user to manually manage acks has huge implications because the application must
+handle the ack in a manner that respects the MQTT protocol.
+This is discussed here: <https://github.com/eclipse-paho/paho.mqtt.rust/issues/141#issuecomment-2305487832>
 
 ## Configuration
 
