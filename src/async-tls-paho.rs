@@ -72,7 +72,7 @@ async fn main() {
 
         loop {
             // Send a secure message
-            let msg = mqtt::Message::new("test", "Hello secure MQTT world!", mqtt::QOS_1);
+            let msg = mqtt::Message::new("test", "Hello secure MQTT world!", mqtt::QOS_0);
             let result = client.publish(msg).await;
             println!("Publishing the message: {:?}", result);
             if result.is_err() {
