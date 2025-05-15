@@ -1,0 +1,31 @@
+[package]
+name = "rust-mqtt-eval"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rumqttc = "0.24.0"
+simple_logger = "5.0.0"
+paho-mqtt = { version = "0.13.3", default-features = false, features = [
+    "ssl",
+    # disabling this requires to install the `libpaho-mqtt` library.
+    # "bundled" 
+] }
+tokio = { version = "1.45.0", features = ["full"] }
+log = "0.4.27"
+
+[[bin]]
+name = "async-rumqttc"
+path = "src/async-rumqttc.rs"
+
+[[bin]]
+name = "sync-rumqttc"
+path = "src/sync-rumqttc.rs"
+
+[[bin]]
+name = "async-paho"
+path = "src/async-paho.rs"
+
+[[bin]]
+name = "async-tls-paho"
+path = "src/async-tls-paho.rs"
