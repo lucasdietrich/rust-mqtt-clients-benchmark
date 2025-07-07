@@ -19,11 +19,24 @@ async fn main() {
 }
 
 async fn rx(rx: paho_mqtt::AsyncReceiver<Option<paho_mqtt::Message>>) {
-    while let Ok(msg) = rx.recv().await {
-        if let Some(message) = msg {
-            println!("Received message: {:?}", message);
-        } else {
-            println!("No message received");
+    loop {
+        let msg = rx.recv().await;
+        match msg {
+            Ok(Some(message)) => {
+                println!("Received message: {:?}", message);
+            }
+            Ok(None) => {
+                // Closed
+                println!("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                println!("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                println!("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                println!("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                tokio::time::sleep(Duration::from_secs(1)).await;
+            }
+            Err(e) => {
+                println!("Error receiving message: {:?}", e);
+                break;
+            }
         }
     }
 }
@@ -34,13 +47,17 @@ async fn tx(mut paho: Paho) {
 
     let stdin = io::stdin();
     let mut lines = io::BufReader::new(stdin).lines();
-    while let Some(line) = lines.next_line().await.unwrap() {
-        let msg = format!("Message {}: {}", i, line);
-        let result = paho.publish("test/topic", msg.as_bytes()).await;
-        println!(
-            "Published message to topic 'test/topic': {:?}",
-            result
-        );
-        i += 1;
+    loop {
+        match lines.next_line().await.unwrap() {
+            Some(line) => {
+                let msg = format!("Message {}: {}", i, line);
+                let result = paho.publish("test/topic", msg.as_bytes()).await;
+                println!("Published message to topic 'test/topic': {:?}", result);
+                i += 1;
+            }
+            None => {
+                // ..
+            }
+        }
     }
 }

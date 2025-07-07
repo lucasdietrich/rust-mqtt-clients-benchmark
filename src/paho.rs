@@ -47,6 +47,7 @@ impl Paho {
             true => Ok(()),
             false => {
                 if self.first_connect {
+                    println!("Connecting to MQTT broker for the first time...");
                     self.paho.connect(self.opts.clone()).await.map_err(|e| {
                         MqttError::ConnectionFailed(format!(
                             "Failed to connect to MQTT broker: {}",
@@ -56,20 +57,23 @@ impl Paho {
                     self.first_connect = false;
                     Ok(())
                 } else {
-                    Err(MqttError::ConnectionFailed(
-                        "Failed to connect to MQTT broker".to_string(),
-                    ))
+                    println!("Reconnecting to MQTT broker...");
+                    self.paho.reconnect().await.map_err(|e| {
+                        MqttError::ConnectionFailed(format!(
+                            "Failed to reconnect to MQTT broker: {}",
+                            e
+                        ))
+                    })?;
+                    Ok(())
                 }
             }
         }
     }
 
     pub async fn connect(&mut self) -> Result<(), MqttError> {
+        self.first_connect = false;
         self.paho.connect(self.opts.clone()).await.map_err(|e| {
-            MqttError::ConnectionFailed(format!(
-                "Failed to connect to MQTT broker: {}",
-                e
-            ))
+            MqttError::ConnectionFailed(format!("Failed to connect to MQTT broker: {}", e))
         })?;
         Ok(())
     }
@@ -77,10 +81,7 @@ impl Paho {
     pub async fn subscribe(&mut self, topic: &str) -> Result<(), MqttError> {
         self.try_connect().await?;
         self.paho.subscribe(topic, paho::QOS_0).await.map_err(|e| {
-            MqttError::SubscriptionFailed(format!(
-                "Failed to subscribe to topic {}: {}",
-                topic, e
-            ))
+            MqttError::SubscriptionFailed(format!("Failed to subscribe to topic {}: {}", topic, e))
         })?;
         Ok(())
     }
