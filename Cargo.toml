@@ -6,15 +6,19 @@ edition = "2021"
 [dependencies]
 simple_logger = "5.0.0"
 log = "0.4.27"
+thiserror = "2.0.12"
 
-[dev-dependencies]
-rumqttc = "0.24.0"
+# optionals
+async-trait = "0.1.88"
 paho-mqtt = { version = "0.13.3", default-features = false, features = [
     "ssl",
     # disabling this requires to install the `libpaho-mqtt` library.
     # "bundled" 
 ] }
+rumqttc = "0.24.0"
 tokio = { version = "1.45.0", features = ["full"] }
+
+[dev-dependencies]
 
 [[example]]
 name = "async-rumqttc"

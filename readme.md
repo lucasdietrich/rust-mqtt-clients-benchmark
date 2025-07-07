@@ -244,3 +244,41 @@ Publishing the message: Ok(())
 Publishing the message: Err(Disconnected)
 Connecting to the broker: Err(TcpTlsConnectFailure)
 ```
+
+## Emulate broker drop:
+
+1. iptables
+
+```bash
+# set rules
+sudo iptables -A INPUT -p tcp --sport 1883 -j DROP
+sudo iptables -A OUTPUT -p tcp --dport 1883 -j DROP
+
+# clear with
+sudo iptables -D INPUT -p tcp --sport 1883 -j DROP
+sudo iptables -D OUTPUT -p tcp --dport 1883 -j DROP
+```
+
+2. STOP/CONT
+
+```bash
+# stop the broker
+kill -STOP $(pgrep mosquitto)
+
+# continue the broker
+kill -CONT $(pgrep mosquitto)
+```
+
+## Inspect connections
+
+Few details:
+
+```
+sudo tcpdump -i lo -n tcp port 1883
+```
+
+More details:
+
+```
+sudo tcpdump -i lo -n -X tcp port 1883
+```
