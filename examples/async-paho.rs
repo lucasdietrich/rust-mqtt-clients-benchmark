@@ -6,7 +6,11 @@ use std::{env, process, thread};
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() {
-    simple_logger::SimpleLogger::new().env().with_level(LevelFilter::Info).init().unwrap();
+    simple_logger::SimpleLogger::new()
+        .env()
+        .with_level(LevelFilter::Info)
+        .init()
+        .unwrap();
 
     // Command-line option(s)
     let host = env::args()

@@ -55,7 +55,7 @@ Sample: [src/sync-rumqttc.rs](src/sync-rumqttc.rs)
 
 - Run the synchronous `rumqtt` client with `mosquitto.conf` configuration:
 ```bash
-cargo run --release --bin sync-rumqttc
+cargo run --release --example sync-rumqttc
 ```
 
 Output:
@@ -63,7 +63,7 @@ Output:
 - We notice that the `publish()` function always returns `Ok(())` even if the broker is not available.
 
 ```
-lucas@zgw:~/projects/rust-mqtt-eval$ cargo run --release --bin sync-rumqttc
+lucas@zgw:~/projects/rust-mqtt-eval$ cargo run --release --example sync-rumqttc
    Compiling rust-mqtt-eval v0.1.0 (/home/lucas/projects/rust-mqtt-eval)
     Finished `release` profile [optimized] target(s) in 0.42s
      Running `target/release/sync-rumqttc`
@@ -121,7 +121,7 @@ Sample: [src/sync-rumqttc.rs](src/sync-rumqttc.rs)
 
 - Run the asynchronous `rumqtt` client with `mosquitto.conf` configuration:
 ```bash
-cargo run --release --bin async-rumqttc
+cargo run --release --example async-rumqttc
 ```
 
 Output:
@@ -129,7 +129,7 @@ Output:
 - We notice that the `publish()` function always returns `Ok(())` even if the broker is not available.
 
 ```
-lucas@zgw:~/projects/rust-mqtt-eval$ cargo run --release --bin async-rumqttc
+lucas@zgw:~/projects/rust-mqtt-eval$ cargo run --release --example async-rumqttc
    Compiling rust-mqtt-eval v0.1.0 (/home/lucas/projects/rust-mqtt-eval)
     Finished `release` profile [optimized] target(s) in 0.87s
      Running `target/release/async-rumqttc`
@@ -182,7 +182,7 @@ Sample: [src/async-paho.rs](src/async-paho.rs)
 
 - Run the asynchronous `paho` client with `mosquitto.conf` configuration:
 ```bash
-cargo run --release --bin async-paho
+cargo run --release --example async-paho
 ```
 
 Output:
@@ -190,7 +190,7 @@ Output:
 - We notice that the `publish()` function returns the actial status of the connection.
 
 ```
-lucas@zgw:~/projects/rust-mqtt-eval$ cargo run --release --bin async-paho
+lucas@zgw:~/projects/rust-mqtt-eval$ cargo run --release --example async-paho
    Compiling rust-mqtt-eval v0.1.0 (/home/lucas/projects/rust-mqtt-eval)
     Finished `release` profile [optimized] target(s) in 0.42s
      Running `target/release/async-paho`
@@ -216,7 +216,7 @@ Sample: [src/async-tls-paho.rs](src/async-tls-paho.rs)
 
 - Run the asynchronous `async-mqtt` client + TLS with `mosquitto-secure.conf` configuration:
 ```bash
-cargo run --release --bin async-tls-paho
+cargo run --release --example async-tls-paho
 ```
 
 Output:
@@ -224,7 +224,7 @@ Output:
 - We notice that the `publish()` function returns the actial status of the connection.
 
 ```
-lucas@zgw:~/projects/rust-mqtt-eval$ cargo run --release --bin async-tls-paho
+lucas@zgw:~/projects/rust-mqtt-eval$ cargo run --release --example async-tls-paho
    Compiling rust-mqtt-eval v0.1.0 (/home/lucas/projects/rust-mqtt-eval)
     Finished `release` profile [optimized] target(s) in 0.44s
      Running `target/release/async-tls-paho`
